@@ -30,7 +30,6 @@ public class StockBatchController {
     @PostMapping
     public ApiResponse<StockBatchResponseDTO> save(
             @Valid @RequestBody StockBatchRequestDTO dto) {
-
         return stockBatchService.save(dto);
     }
 
@@ -43,7 +42,7 @@ public class StockBatchController {
     }
 
     @PutMapping("/{id}")
-    public ApiResponse<Void> update(
+    public ApiResponse<StockBatchResponseDTO> update(
             @PathVariable Long id,
             @Valid @RequestBody StockBatchRequestDTO dto
     ){

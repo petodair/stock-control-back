@@ -16,6 +16,6 @@ public interface IStockBatchService {
     public ApiResponse<List<StockBatchResponseDTO>> findAll(Pageable pageable, StockLocation location,
                                                             Boolean expired);
 
-    public ApiResponse<Void> update(Long id,StockBatchRequestDTO dto);
+    public ApiResponse<StockBatchResponseDTO> update(Long id,StockBatchRequestDTO dto);
 
 }

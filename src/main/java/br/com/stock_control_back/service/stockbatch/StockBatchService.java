@@ -64,7 +64,7 @@ public class StockBatchService implements IStockBatchService{
 
     @Transactional
     @Override
-    public ApiResponse<Void> update(Long id,StockBatchRequestDTO dto) {
+    public ApiResponse<StockBatchResponseDTO> update(Long id,StockBatchRequestDTO dto) {
         if (stockBatchRepository.existsById(id)) {
             throw new EntityNotFoundException("Lote não encontrado para alteração!");
         }
@@ -76,10 +76,12 @@ public class StockBatchService implements IStockBatchService{
         StockBatch stockBatch = StockBatchMapper.toEntity(dto, product.get());
         stockBatch.setId(id);
 
+        stockBatchRepository.save(stockBatch);
+
         return new ApiResponse<>(
                 ApiResponse.ResponseStatusType.SUCCESS,
                 HttpStatus.NO_CONTENT,
-                null,
+                StockBatchMapper.toDTO(stockBatch),
                 "Item em estoque atualizado com sucesso!");
     }
 
