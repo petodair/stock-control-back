@@ -7,6 +7,7 @@ import br.com.stock_control_back.repository.StockBatchRepository;
 import net.sf.jasperreports.engine.*;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import org.springframework.util.ResourceUtils;
 
 import java.io.File;
@@ -14,10 +15,14 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
+@Service
 public class ReportService implements IReportService{
 
-    @Autowired
-    private StockBatchRepository stockBatchRepository;
+    private final StockBatchRepository stockBatchRepository;
+
+    public ReportService(StockBatchRepository stockBatchRepository) {
+        this.stockBatchRepository = stockBatchRepository;
+    }
 
     public byte[] generateBatchReport() throws Exception {
         List<StockBatch> batches = stockBatchRepository.findAll();

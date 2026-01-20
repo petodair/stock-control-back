@@ -9,7 +9,7 @@
     <field name="batchNumber" class="java.lang.String"/>
     <field name="manufacturing" class="java.lang.String"/>
     <field name="validity" class="java.lang.String"/>
-    <field name="quantity" class="java.lang.BigDecimal"/>
+    <field name="quantity" class="java.math.BigDecimal"/>
     <field name="location" class="java.lang.String"/>
 
     <title>
