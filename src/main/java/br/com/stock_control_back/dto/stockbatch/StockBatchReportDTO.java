@@ -10,7 +10,7 @@ public record StockBatchReportDTO(
         String batchNumber,
         String manufacturing,
         String validity,
-        Integer quantity,
+        BigDecimal quantity,
         String location
 ) {
 }
