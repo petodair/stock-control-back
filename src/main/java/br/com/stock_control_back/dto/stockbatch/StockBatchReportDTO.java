@@ -12,10 +12,11 @@ public class StockBatchReportDTO {
     private String validity;
     private BigDecimal quantity;
     private String location;
+    private BigDecimal totalPrice;
 
     public StockBatchReportDTO(String productName, String productCode, BigDecimal price,
                                String batchNumber, String manufacturing, String validity,
-                               BigDecimal quantity, String location) {
+                               BigDecimal quantity, String location, BigDecimal totalPrice) {
         this.productName = productName;
         this.productCode = productCode;
         this.price = price;
@@ -24,6 +25,7 @@ public class StockBatchReportDTO {
         this.validity = validity;
         this.quantity = quantity;
         this.location = location;
+        this.totalPrice = totalPrice;
     }
 
     public String getProductName() {
@@ -88,5 +90,13 @@ public class StockBatchReportDTO {
 
     public void setLocation(String location) {
         this.location = location;
+    }
+
+    public BigDecimal getTotalPrice() {
+        return totalPrice;
+    }
+
+    public void setTotalPrice(BigDecimal totalPrice) {
+        this.totalPrice = totalPrice;
     }
 }

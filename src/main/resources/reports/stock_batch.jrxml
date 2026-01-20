@@ -11,6 +11,7 @@
     <field name="validity" class="java.lang.String"/>
     <field name="quantity" class="java.math.BigDecimal"/>
     <field name="location" class="java.lang.String"/>
+    <field name="totalPrice" class="java.math.BigDecimal"/>
 
     <title>
         <band height="50">
@@ -62,9 +63,14 @@
                 <text><![CDATA[Local]]></text>
             </staticText>
             <staticText>
-                <reportElement x="650" y="0" width="80" height="30"/>
+                <reportElement x="630" y="0" width="80" height="30"/>
                 <textElement verticalAlignment="Middle"><font isBold="true"/></textElement>
                 <text><![CDATA[Preço]]></text>
+            </staticText>
+            <staticText>
+                <reportElement x="700" y="0" width="80" height="30"/>
+                <textElement verticalAlignment="Middle"><font isBold="true"/></textElement>
+                <text><![CDATA[Preço Total]]></text>
             </staticText>
         </band>
     </columnHeader>
@@ -107,9 +113,14 @@
                 <textFieldExpression><![CDATA[$F{location}]]></textFieldExpression>
             </textField>
             <textField pattern="R$ #,##0.00">
-                <reportElement x="650" y="0" width="80" height="20"/>
+                <reportElement x="630" y="0" width="80" height="20"/>
                 <textElement verticalAlignment="Middle"/>
                 <textFieldExpression><![CDATA[$F{price}]]></textFieldExpression>
+            </textField>
+            <textField pattern="R$ #,##0.00">
+                <reportElement x="700" y="0" width="80" height="20"/>
+                <textElement verticalAlignment="Middle"/>
+                <textFieldExpression><![CDATA[$F{totalPrice}]]></textFieldExpression>
             </textField>
         </band>
     </detail>

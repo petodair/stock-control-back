@@ -39,10 +39,11 @@ public class ReportService implements IReportService{
                     product.getCode(),
                     product.getPrice(),
                     batch.getBatchNumber(),
-                    batch.getManufacturing().format(formatter), // Formata data
-                    batch.getValidity().format(formatter),      // Formata data
+                    batch.getManufacturing().format(formatter),
+                    batch.getValidity().format(formatter),
                     batch.getQuantity(),
-                    batch.getLocation().toString()
+                    batch.getLocation().toString(),
+                    batch.getQuantity().multiply(product.getPrice())
             ));
         }
 
