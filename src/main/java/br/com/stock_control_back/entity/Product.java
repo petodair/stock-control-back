@@ -1,6 +1,7 @@
 package br.com.stock_control_back.entity;
 
 import br.com.stock_control_back.enums.ProductType;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -9,6 +10,8 @@ import lombok.Setter;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table
@@ -34,4 +37,8 @@ public class Product implements Serializable {
     @Column(nullable = false)
     @Enumerated(EnumType.STRING)
     private ProductType productType;
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL)
+    private List<StockBatch> stockBatches = new ArrayList<>();
 }
