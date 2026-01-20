@@ -1,5 +1,6 @@
 package br.com.stock_control_back.entity;
 
+import br.com.stock_control_back.enums.ProductType;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -29,4 +30,8 @@ public class Product implements Serializable {
 
     @Column(precision = 18, scale = 2)
     private BigDecimal price;
+
+    @Column(nullable = false)
+    @Enumerated(EnumType.STRING)
+    private ProductType productType;
 }
