@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports"
+              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+              xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd"
+              name="stock-batch-report" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20">
+    <field name="productName" class="java.lang.String"/>
+    <field name="productCode" class="java.lang.String"/>
+    <field name="price" class="java.math.BigDecimal"/>
+    <field name="batchNumber" class="java.lang.String"/>
+    <field name="manufacturing" class="java.lang.String"/>
+    <field name="validity" class="java.lang.String"/>
+    <field name="quantity" class="java.lang.Integer"/>
+    <field name="location" class="java.lang.String"/>
+
+    <title>
+        <band height="50">
+            <staticText>
+                <reportElement x="0" y="10" width="802" height="30"/>
+                <textElement textAlignment="Center" verticalAlignment="Middle">
+                    <font size="20" isBold="true"/>
+                </textElement>
+                <text><![CDATA[Relatório de Lotes em Estoque]]></text>
+            </staticText>
+        </band>
+    </title>
+
+    <columnHeader>
+        <band height="30">
+            <staticText>
+                <reportElement x="0" y="0" width="150" height="30"/>
+                <textElement verticalAlignment="Middle"><font isBold="true"/></textElement>
+                <text><![CDATA[Produto]]></text>
+            </staticText>
+            <staticText>
+                <reportElement x="150" y="0" width="80" height="30"/>
+                <textElement verticalAlignment="Middle"><font isBold="true"/></textElement>
+                <text><![CDATA[Cód.]]></text>
+            </staticText>
+            <staticText>
+                <reportElement x="230" y="0" width="100" height="30"/>
+                <textElement verticalAlignment="Middle"><font isBold="true"/></textElement>
+                <text><![CDATA[Lote]]></text>
+            </staticText>
+            <staticText>
+                <reportElement x="330" y="0" width="80" height="30"/>
+                <textElement verticalAlignment="Middle"><font isBold="true"/></textElement>
+                <text><![CDATA[Fab.]]></text>
+            </staticText>
+            <staticText>
+                <reportElement x="410" y="0" width="80" height="30"/>
+                <textElement verticalAlignment="Middle"><font isBold="true"/></textElement>
+                <text><![CDATA[Validade]]></text>
+            </staticText>
+            <staticText>
+                <reportElement x="490" y="0" width="60" height="30"/>
+                <textElement verticalAlignment="Middle"><font isBold="true"/></textElement>
+                <text><![CDATA[Qtd]]></text>
+            </staticText>
+            <staticText>
+                <reportElement x="550" y="0" width="100" height="30"/>
+                <textElement verticalAlignment="Middle"><font isBold="true"/></textElement>
+                <text><![CDATA[Local]]></text>
+            </staticText>
+            <staticText>
+                <reportElement x="650" y="0" width="80" height="30"/>
+                <textElement verticalAlignment="Middle"><font isBold="true"/></textElement>
+                <text><![CDATA[Preço]]></text>
+            </staticText>
+        </band>
+    </columnHeader>
+
+    <detail>
+        <band height="20">
+            <textField>
+                <reportElement x="0" y="0" width="150" height="20"/>
+                <textElement verticalAlignment="Middle"/>
+                <textFieldExpression><![CDATA[$F{productName}]]></textFieldExpression>
+            </textField>
+            <textField>
+                <reportElement x="150" y="0" width="80" height="20"/>
+                <textElement verticalAlignment="Middle"/>
+                <textFieldExpression><![CDATA[$F{productCode}]]></textFieldExpression>
+            </textField>
+            <textField>
+                <reportElement x="230" y="0" width="100" height="20"/>
+                <textElement verticalAlignment="Middle"/>
+                <textFieldExpression><![CDATA[$F{batchNumber}]]></textFieldExpression>
+            </textField>
+            <textField>
+                <reportElement x="330" y="0" width="80" height="20"/>
+                <textElement verticalAlignment="Middle"/>
+                <textFieldExpression><![CDATA[$F{manufacturing}]]></textFieldExpression>
+            </textField>
+            <textField>
+                <reportElement x="410" y="0" width="80" height="20"/>
+                <textElement verticalAlignment="Middle"/>
+                <textFieldExpression><![CDATA[$F{validity}]]></textFieldExpression>
+            </textField>
+            <textField>
+                <reportElement x="490" y="0" width="60" height="20"/>
+                <textElement verticalAlignment="Middle"/>
+                <textFieldExpression><![CDATA[$F{quantity}]]></textFieldExpression>
+            </textField>
+            <textField>
+                <reportElement x="550" y="0" width="100" height="20"/>
+                <textElement verticalAlignment="Middle"/>
+                <textFieldExpression><![CDATA[$F{location}]]></textFieldExpression>
+            </textField>
+            <textField pattern="R$ #,##0.00">
+                <reportElement x="650" y="0" width="80" height="20"/>
+                <textElement verticalAlignment="Middle"/>
+                <textFieldExpression><![CDATA[$F{price}]]></textFieldExpression>
+            </textField>
+        </band>
+    </detail>
+</jasperReport>

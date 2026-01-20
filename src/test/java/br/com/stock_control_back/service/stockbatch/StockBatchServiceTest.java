@@ -12,13 +12,5 @@ public class StockBatchServiceTest {
     @Autowired
     IStockBatchService stockBatchService;
 
-    @Test
-    void SaveStockBatch(){
-        StockBatch stockBatch = new StockBatch();
-    }
-
-    private StockBatchResponseDTO createStock(StockBatch stockBatch){
-
-    }
 
 }
