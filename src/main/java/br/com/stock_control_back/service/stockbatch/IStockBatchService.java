@@ -1,6 +1,7 @@
 package br.com.stock_control_back.service.stockbatch;
 
 import br.com.stock_control_back.dto.ApiResponse;
+import br.com.stock_control_back.dto.stockbatch.StockBatchRequestDTO;
 import br.com.stock_control_back.dto.stockbatch.StockBatchResponseDTO;
 import br.com.stock_control_back.entity.StockBatch;
 import br.com.stock_control_back.enums.StockLocation;
@@ -10,11 +11,11 @@ import java.util.List;
 
 public interface IStockBatchService {
 
-    public ApiResponse<StockBatch> save(StockBatch stockBatch);
+    public ApiResponse<StockBatchResponseDTO> save(StockBatchRequestDTO dto);
 
     public ApiResponse<List<StockBatchResponseDTO>> findAll(Pageable pageable, StockLocation location,
                                                             Boolean expired);
 
-    public ApiResponse<StockBatch> update(StockBatch stockBatch);
+    public ApiResponse<Void> update(Long id,StockBatchRequestDTO dto);
 
 }

@@ -22,20 +22,16 @@ import java.util.List;
 public class StockBatchController {
 
     private final IStockBatchService stockBatchService;
-    private final ProductService productService;
 
-    public StockBatchController(IStockBatchService stockBatchService, ProductService productService) {
+    public StockBatchController(IStockBatchService stockBatchService) {
         this.stockBatchService = stockBatchService;
-        this.productService = productService;
     }
 
     @PostMapping
-    public ApiResponse<StockBatch> save(
+    public ApiResponse<StockBatchResponseDTO> save(
             @Valid @RequestBody StockBatchRequestDTO dto) {
-        Product product = productService.findById(dto.productId()).data();
 
-        StockBatch batch = StockBatchMapper.toEntity(dto, product);
-        return stockBatchService.save(batch);
+        return stockBatchService.save(dto);
     }
 
     @GetMapping
@@ -46,12 +42,11 @@ public class StockBatchController {
         return this.stockBatchService.findAll(pageable, location, expired);
     }
 
-    public ApiResponse<StockBatch> update(
+    @PutMapping("/{id}")
+    public ApiResponse<Void> update(
+            @PathVariable Long id,
             @Valid @RequestBody StockBatchRequestDTO dto
     ){
-        Product product = productService.findById(dto.productId()).data();
-
-        StockBatch batch = StockBatchMapper.toEntity(dto, product);
-        return stockBatchService.update(batch);
+        return stockBatchService.update(id,dto);
     }
 }
