@@ -1,0 +1,96 @@
+name: Maven Deploy Integrator
+
+on:
+  push:
+    branches:
+      - main  # Só roda quando der push na main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    outputs:
+      jar_name: ${{ steps.jar_name.outputs.jar_name }}
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup JDK 21
+        uses: actions/setup-java@v4
+        with:
+          java-version: '21'
+          distribution: 'temurin'
+          cache: maven
+
+      - name: Build com Maven
+        run: mvn -B package --file pom.xml -DskipTests
+
+      - name: Criando diretório para Upload
+        run: mkdir ./jar-upload
+
+      - name: Copiando JAR gerado para pasta de upload
+        run: cp ./target/*.jar ./jar-upload
+
+      # Pega o nome do arquivo dinamicamente (Ex: stock-control-0.0.1.jar)
+      - name: Definir nome do arquivo JAR sem extensão
+        id: jar_name
+        run: |
+          FILE_NAME=$(basename $(ls ./jar-upload/*.jar) .jar)
+          echo "jar_name=$FILE_NAME" >> $GITHUB_OUTPUT
+
+      - name: Debug - Mostrar nome do JAR
+        run: echo "O nome do arquivo JAR é ${{ steps.jar_name.outputs.jar_name }}"
+
+      # Envia o arquivo para o servidor via FTP
+      - name: Enviando JAR por FTP
+        uses: SamKirkland/FTP-Deploy-Action@4.3.0
+        with:
+          server: ${{ secrets.HOST }}
+          username: ${{ secrets.USUARIOCPANEL }}
+          password: ${{ secrets.SENHACPANEL }}
+          local-dir: ./jar-upload/
+          server-dir: ~/appservers/standalone/  # Confirme se a Integrator mandou usar essa pasta mesmo!
+
+      # Instala ferramenta para rodar comandos SSH com senha
+      - name: Instalar SSH Client
+        run: sudo apt-get install openssh-client sshpass expect
+
+      # Para a aplicação antiga
+      - name: Parar o Spring Boot
+        env:
+          USUARIOCPANEL: ${{ secrets.USUARIOCPANEL }}
+          HOST: ${{ secrets.HOST }}
+          SENHACPANEL: ${{ secrets.SENHACPANEL }}
+          JAR_NAME: ${{ steps.jar_name.outputs.jar_name }}
+        run: |
+          expect -c "
+          set timeout 20
+          spawn ssh -o StrictHostKeyChecking=no $env(USUARIOCPANEL)@$env(HOST)
+          expect \"password:\"
+          send \"$env(SENHACPANEL)\r\"
+          expect \"$ \"
+          send \"bash appservers/tmp/$env(JAR_NAME).sh stop\r\"
+          expect \"$ \"
+          send \"exit\r\"
+          expect eof
+          "
+
+      # Inicia a aplicação nova
+      - name: Iniciar o Spring Boot
+        env:
+          USUARIOCPANEL: ${{ secrets.USUARIOCPANEL }}
+          HOST: ${{ secrets.HOST }}
+          SENHACPANEL: ${{ secrets.SENHACPANEL }}
+          JAR_NAME: ${{ steps.jar_name.outputs.jar_name }}
+        run: |
+          expect -c "
+          set timeout 20
+          spawn ssh -o StrictHostKeyChecking=no $env(USUARIOCPANEL)@$env(HOST)
+          expect \"password:\"
+          send \"$env(SENHACPANEL)\r\"
+          expect \"$ \"
+          send \"bash appservers/tmp/$env(JAR_NAME).sh start\r\"
+          expect \"$ \"
+          send \"exit\r\"
+          expect eof
+          "
