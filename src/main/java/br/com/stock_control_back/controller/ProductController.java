@@ -13,7 +13,9 @@ import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import java.net.URI;
 import java.util.List;
 
 @RestController
@@ -28,7 +30,16 @@ public class ProductController {
 
     @PostMapping
     public ResponseEntity<ApiResponse<Product>> save(@RequestBody ProductRequestDTO product) {
-        return new ResponseEntity<>(this.productService.save(product), HttpStatus.CREATED);
+
+        ApiResponse<Product> apiResponse = this.productService.save(product);
+
+        URI location = ServletUriComponentsBuilder
+                .fromCurrentRequest()
+                .path("{id}")
+                .buildAndExpand(apiResponse.data().getId())
+                .toUri();
+
+        return ResponseEntity.created(location).body(apiResponse);
     }
 
     @GetMapping
