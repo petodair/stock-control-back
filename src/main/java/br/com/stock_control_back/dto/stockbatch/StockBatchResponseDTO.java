@@ -1,5 +1,6 @@
 package br.com.stock_control_back.dto.stockbatch;
 
+import br.com.stock_control_back.entity.StockBatch;
 import br.com.stock_control_back.enums.ProductType;
 import br.com.stock_control_back.enums.StockLocation;
 
@@ -18,4 +19,19 @@ public record StockBatchResponseDTO(
         Long productId,
         String productName,
         ProductType productType
-) {}
+) {
+    public StockBatchResponseDTO(StockBatch batch){
+        this(
+                batch.getId(),
+                batch.getBatchNumber(),
+                batch.getManufacturing(),
+                batch.getValidity(),
+                batch.getQuantity().doubleValue(),
+                batch.getLocation(),
+
+                batch.getProduct().getId(),
+                batch.getProduct().getName(),
+                batch.getProduct().getProductType()
+        );
+    }
+}

@@ -5,7 +5,6 @@ import br.com.stock_control_back.dto.product.ProductRequestDTO;
 import br.com.stock_control_back.dto.product.ProductResponseDTO;
 import br.com.stock_control_back.entity.Product;
 import br.com.stock_control_back.enums.ProductType;
-import br.com.stock_control_back.mapper.ProductMapper;
 import br.com.stock_control_back.repository.ProductRepository;
 import br.com.stock_control_back.specification.ProductSpecification;
 import br.com.stock_control_back.validator.ProductValidator;
@@ -36,7 +35,7 @@ public class ProductService implements IProductService {
     @Transactional
     public ApiResponse<Product> save(ProductRequestDTO productDTO) {
 
-        Product product = ProductMapper.toEntity(productDTO);
+        Product product = productDTO.toEntity();
         productValidator.validate(product);
 
         return new ApiResponse<>(ApiResponse.ResponseStatusType.SUCCESS,
@@ -68,7 +67,7 @@ public class ProductService implements IProductService {
         return new ApiResponse<>(
                 ApiResponse.ResponseStatusType.SUCCESS,
                 HttpStatus.OK,
-                products.map(ProductMapper::toDTO).getContent(),
+                products.map(ProductResponseDTO::new).getContent(),
                 "Pagina de produtos retornada com sucesso!");
     }
 
@@ -102,7 +101,7 @@ public class ProductService implements IProductService {
         return new ApiResponse<>(
                 ApiResponse.ResponseStatusType.SUCCESS,
                 HttpStatus.OK,
-                ProductMapper.toDTO(product),
+                new ProductResponseDTO(product),
                 "Produto atualizado com sucesso");
     }
 

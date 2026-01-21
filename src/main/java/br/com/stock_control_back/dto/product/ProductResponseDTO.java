@@ -1,5 +1,7 @@
 package br.com.stock_control_back.dto.product;
 
+import br.com.stock_control_back.entity.Product;
+
 import java.math.BigDecimal;
 
 public record ProductResponseDTO(
@@ -8,4 +10,14 @@ public record ProductResponseDTO(
         String code,
         BigDecimal price,
         String productType
-) {}
+) {
+    public ProductResponseDTO(Product product){
+        this(
+                product.getId(),
+                product.getName(),
+                product.getCode(),
+                product.getPrice(),
+                product.getProductType().toString()
+        );
+    }
+}

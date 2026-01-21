@@ -2,7 +2,6 @@ package br.com.stock_control_back.dataloader;
 
 import br.com.stock_control_back.dto.product.ProductRequestDTO;
 import br.com.stock_control_back.enums.ProductType;
-import br.com.stock_control_back.mapper.ProductMapper;
 import br.com.stock_control_back.repository.ProductRepository;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Configuration;
@@ -12,7 +11,6 @@ import java.math.BigDecimal;
 import java.util.Arrays;
 import java.util.List;
 
-@Configuration
 @Order(value = 1)
 public class ProductDataLoader implements CommandLineRunner {
 
@@ -43,7 +41,7 @@ public class ProductDataLoader implements CommandLineRunner {
 
         if (productRepository.count() == 0) {
             productRepository.saveAll(
-                    listProduct.stream().map(ProductMapper::toEntity).toList()
+                    listProduct.stream().map(ProductRequestDTO::toEntity).toList()
             );
         }
     }

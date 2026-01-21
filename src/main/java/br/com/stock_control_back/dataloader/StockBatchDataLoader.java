@@ -14,7 +14,6 @@ import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.List;
 
-@Configuration
 @Order(value = 2)
 public class StockBatchDataLoader implements CommandLineRunner {
 

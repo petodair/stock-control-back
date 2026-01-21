@@ -6,7 +6,6 @@ import br.com.stock_control_back.dto.stockbatch.StockBatchResponseDTO;
 import br.com.stock_control_back.entity.Product;
 import br.com.stock_control_back.entity.StockBatch;
 import br.com.stock_control_back.enums.StockLocation;
-import br.com.stock_control_back.mapper.StockBatchMapper;
 import br.com.stock_control_back.repository.ProductRepository;
 import br.com.stock_control_back.repository.StockBatchRepository;
 import br.com.stock_control_back.specification.StockBatchSpecification;
@@ -38,14 +37,14 @@ public class StockBatchService implements IStockBatchService{
             throw new EntityNotFoundException("produto não encontrado para a operação");
         }
 
-        StockBatch stockBatch = StockBatchMapper.toEntity(dto, product.get());
+        StockBatch stockBatch = dto.toEntity(product.get());
 
         this.stockBatchRepository.save(stockBatch);
 
         return new ApiResponse<>(
                 ApiResponse.ResponseStatusType.SUCCESS,
                 HttpStatus.CREATED,
-                StockBatchMapper.toDTO(stockBatch),
+                new StockBatchResponseDTO(stockBatch),
                 "Item em estoque salvo com sucesso!");
     }
 
@@ -58,7 +57,7 @@ public class StockBatchService implements IStockBatchService{
         return new ApiResponse<>(
                 ApiResponse.ResponseStatusType.SUCCESS,
                 HttpStatus.OK,
-                page.map(StockBatchMapper::toDTO).getContent(),
+                page.map(StockBatchResponseDTO::new).getContent(),
                 "Lista de produtos retornados com sucesso");
     }
 
@@ -73,7 +72,7 @@ public class StockBatchService implements IStockBatchService{
             throw new EntityNotFoundException("Produto não encontrado para alteração!");
         }
 
-        StockBatch stockBatch = StockBatchMapper.toEntity(dto, product.get());
+        StockBatch stockBatch = dto.toEntity(product.get());
         stockBatch.setId(id);
 
         stockBatchRepository.save(stockBatch);
@@ -81,7 +80,7 @@ public class StockBatchService implements IStockBatchService{
         return new ApiResponse<>(
                 ApiResponse.ResponseStatusType.SUCCESS,
                 HttpStatus.NO_CONTENT,
-                StockBatchMapper.toDTO(stockBatch),
+                new StockBatchResponseDTO(stockBatch),
                 "Item em estoque atualizado com sucesso!");
     }
 
