@@ -4,14 +4,16 @@ import br.com.stock_control_back.dto.product.ProductRequestDTO;
 import br.com.stock_control_back.enums.ProductType;
 import br.com.stock_control_back.repository.ProductRepository;
 import org.springframework.boot.CommandLineRunner;
-import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Profile;
 import org.springframework.core.annotation.Order;
 
 import java.math.BigDecimal;
 import java.util.Arrays;
 import java.util.List;
 
+//@Configuration
 @Order(value = 1)
+@Profile("test")
 public class ProductDataLoader implements CommandLineRunner {
 
     private final ProductRepository productRepository;
