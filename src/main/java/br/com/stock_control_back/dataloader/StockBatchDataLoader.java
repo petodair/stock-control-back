@@ -15,7 +15,7 @@ import java.util.Arrays;
 import java.util.List;
 
 @Order(value = 2)
-@Profile("test")
+//@Profile("test")
 public class StockBatchDataLoader implements CommandLineRunner {
 
     private final StockBatchRepository stockBatchRepository;

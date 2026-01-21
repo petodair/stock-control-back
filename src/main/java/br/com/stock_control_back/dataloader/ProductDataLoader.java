@@ -11,9 +11,8 @@ import java.math.BigDecimal;
 import java.util.Arrays;
 import java.util.List;
 
-//@Configuration
 @Order(value = 1)
-@Profile("test")
+//@Profile("test")
 public class ProductDataLoader implements CommandLineRunner {
 
     private final ProductRepository productRepository;
