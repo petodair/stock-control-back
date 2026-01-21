@@ -11,7 +11,7 @@ import java.util.List;
 
 public interface IStockBatchService {
 
-    public ApiResponse<StockBatchResponseDTO> save(StockBatchRequestDTO dto);
+    public ApiResponse<StockBatch> save(StockBatchRequestDTO dto);
 
     public ApiResponse<List<StockBatchResponseDTO>> findAll(Pageable pageable, StockLocation location,
                                                             Boolean expired);

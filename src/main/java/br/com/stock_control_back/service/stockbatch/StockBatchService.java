@@ -31,7 +31,7 @@ public class StockBatchService implements IStockBatchService{
         this.productRepository = productRepository;
     }
 
-    public ApiResponse<StockBatchResponseDTO> save(StockBatchRequestDTO dto) {
+    public ApiResponse<StockBatch> save(StockBatchRequestDTO dto) {
         Optional<Product> product = productRepository.findById(dto.productId());
         if(product.isEmpty()){
             throw new EntityNotFoundException("produto não encontrado para a operação");
@@ -44,7 +44,7 @@ public class StockBatchService implements IStockBatchService{
         return new ApiResponse<>(
                 ApiResponse.ResponseStatusType.SUCCESS,
                 HttpStatus.CREATED,
-                new StockBatchResponseDTO(stockBatch),
+                stockBatch,
                 "Item em estoque salvo com sucesso!");
     }
 
