@@ -3,11 +3,7 @@ package br.com.stock_control_back.controller;
 import br.com.stock_control_back.dto.ApiResponse;
 import br.com.stock_control_back.dto.stockbatch.StockBatchRequestDTO;
 import br.com.stock_control_back.dto.stockbatch.StockBatchResponseDTO;
-import br.com.stock_control_back.entity.Product;
-import br.com.stock_control_back.entity.StockBatch;
 import br.com.stock_control_back.enums.StockLocation;
-import br.com.stock_control_back.mapper.StockBatchMapper;
-import br.com.stock_control_back.service.product.ProductService;
 import br.com.stock_control_back.service.stockbatch.IStockBatchService;
 import jakarta.validation.Valid;
 import org.springframework.data.domain.Pageable;
@@ -18,7 +14,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/stock-batch")
+@RequestMapping("/stock-batchs")
 public class StockBatchController {
 
     private final IStockBatchService stockBatchService;

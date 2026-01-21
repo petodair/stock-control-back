@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/report")
+@RequestMapping("/reports")
 public class ReportController {
 
     private final ReportService reportService;
@@ -20,7 +20,7 @@ public class ReportController {
         this.reportService = reportService;
     }
 
-    @GetMapping("/stock-batch")
+    @GetMapping("/stock-batchs")
     public ResponseEntity<byte[]> downloadReport() throws Exception {
         byte[] pdfBytes = reportService.generateBatchReport();
 
